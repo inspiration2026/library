@@ -82,7 +82,6 @@ Object.assign(button_container.style, {
     justifyContent: "center",
 });
 
-
 Object.assign(button.style, {
     width: "150px",
     height: "40px",
@@ -91,6 +90,116 @@ Object.assign(button.style, {
     backgroundColor: "#d2d2d2"
 });
 button.textContent = ("New Book");
+
+// Creating request form 
+    const form_container = document.createElement ("div");
+    Object.assign(form_container.style, {
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "20px",
+        border: "2px solid purple"
+    });
+    const bookForm = document.createElement ("form");
+    document.body.appendChild(form_container);
+    form_container.appendChild(bookForm);
+
+    Object.assign(bookForm.style, {
+        display: "grid",
+        gridTeamplateColumn: "1fr 2fr",
+        columnGap: "10px",
+        rowGap: "10px",
+        // flexDirection: "column",
+        // justifyContent: "center",
+        // marginTop: "20px",
+        border: "2px solid red"
+    });
+
+    const labelOne = document.createElement ("label");
+    const labelTwo = document.createElement ("label");
+    const labelThree = document.createElement ("label");
+
+  
+
+    const inputOne = document.createElement ("input");
+    const inputTwo = document.createElement ("input");
+    const inputThree = document.createElement ("input");
+
+    bookForm.appendChild(labelOne);
+    bookForm.appendChild(inputOne); 
+    bookForm.appendChild(labelTwo);
+    bookForm.appendChild(inputTwo);
+    bookForm.appendChild(labelThree);
+    bookForm.appendChild(inputThree);
+
+    labelOne.textContent = ("Title: ");
+    labelTwo.textContent = ("Author: ");
+    labelThree.textContent = ("Pages: ");
+
+    inputOne.type = "text";
+    inputOne.id = "title";
+    inputOne.name = "title";
+    inputOne.placeholder = "Book title";
+    inputOne.required = "requared";
+ 
+    labelOne.htmlFor = "title";
+
+    inputTwo.type = "text";
+    inputTwo.id = "author";
+    inputTwo.name = "author";
+    inputTwo.placeholder = "Book author";
+    inputTwo.required = "requared";
+ 
+    labelTwo.htmlFor = "author";
+
+    inputThree.type = "number";
+    inputThree.id = "pages";
+    inputThree.name = "pages";
+    inputThree.placeholder = "123";
+    inputThree.required = "requared";
+ 
+    labelThree.htmlFor = "pages";
+
+    labelOne.style.gridColumn = "1/2";
+    inputOne.style.gridColumn = "2/3";
+
+    const readCheckbox = document.createElement('input');
+    readCheckbox.type = 'checkbox';
+    readCheckbox.name = 'read';
+    readCheckbox.id = 'read';
+
+    const readLabel = document.createElement('label');
+    readLabel.htmlFor = 'read';
+    readLabel.textContent = 'I have read this book';
+
+    bookForm.appendChild(readLabel);
+    bookForm.appendChild(readCheckbox);
+
+    const submit = document.createElement ("button")
+    const cancel = document.createElement ("button")
+
+    submit.type = "submit";
+    submit.textContent = "Add Book";
+    cancel.type = "button";
+    cancel.textContent = "Cancel";
+
+    bookForm.appendChild(submit);
+    bookForm.appendChild(cancel);
+
+    Object.assign(submit.style, {
+        width: "100px",
+        height: "30px",
+        backgroundColor: "#e2e1e1"
+    });
+
+    Object.assign(cancel.style, {
+        width: "100px",
+        height: "30px",
+        backgroundColor: "#e2e1e1"
+    });
+
+
+
+
 
 
 
