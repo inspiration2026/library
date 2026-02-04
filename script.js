@@ -1,14 +1,13 @@
 const myLibrary = [];
 
+ // the constructor...
 function Book(title,author,pages,read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read ? "YES" : "NO";
     this.id = crypto.randomUUID();
-  // the constructor...
 }
-
 
 function addBookToLibrary(title,author,pages,read) {
     let book = new Book (title,author,pages,read);
@@ -41,8 +40,11 @@ function createTable() {
     div.classList.add ("table_container");
     const table = document.createElement("table");
     table.classList.add ("table_books");
+    table.style.fontSize = "14px";
+    table.style.fontFamily = "Roboto, sans-serif";
     const caption = document.createElement("caption");
     caption.textContent = ("Books in the Library");
+    caption.style.fontSize = "20px";
     const title_row = document.createElement("tr");
     const head1 = document.createElement("th");
     const head2 = document.createElement("th");
@@ -53,7 +55,7 @@ function createTable() {
     head2.textContent = ("Author");
     head3.textContent = ("Pages");
     head4.textContent = ("ID #");
-    head5.textContent = ("Read already");
+    head5.textContent = ("Read already?");
 
     document.body.appendChild(div);
     div.appendChild(table);
@@ -76,13 +78,13 @@ function displayBook(book) {
     const data3 = document.createElement("td");
     const data4 = document.createElement("td");
     const data5 = document.createElement("td");
+    const actionCell = document.createElement("td");
     const table = document.querySelector("table");
 
     data1.textContent = (book.title);
     data2.textContent = (book.author);
     data3.textContent = (book.pages);
     data4.textContent = (book.id);
-    data5.textContent = (book.read);
 
     table.appendChild (row);
     row.appendChild (data1);
@@ -90,7 +92,58 @@ function displayBook(book) {
     row.appendChild (data3);
     row.appendChild (data4);
     row.appendChild (data5);
-}
+
+
+    const readBtn = document.createElement("button");
+    readBtn.style.margin = "0 auto";
+    readBtn.style.display = "block";
+    readBtn.style.width = "60px";
+    readBtn.style.height = "25px";
+    readBtn.style.borderRadius = "12px/15px";
+    readBtn.dataset.id = book.id;
+    readBtn.textContent = book.read;
+    readBtn.style.backgroundColor = book.read === "YES" ? "#4cd94e" : "#c9d94c";
+    readBtn.addEventListener ("click", function() {
+        if (book.read === "YES") {
+                book.read = "NO";
+                readBtn.textContent = "NO";
+                readBtn.style.backgroundColor = "#c9d94c";
+             } else {
+                book.read = "YES";
+                readBtn.textContent = "YES";
+                readBtn.style.backgroundColor = "#4cd94e";
+             }
+    });
+
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.style.backgroundColor = "#e92e2e";
+    deleteBtn.style.margin = "0 auto";
+    deleteBtn.style.display = "block";
+    deleteBtn.style.width = "60px";
+    deleteBtn.style.height = "25px";
+    deleteBtn.style.borderRadius = "12px/15px";
+    deleteBtn.style.color = "white";
+    deleteBtn.dataset.id = book.id;
+
+    // actionCell.style.display = "flex";
+    // actionCell.style.justifyContent = "center";
+    
+  
+    
+    actionCell.appendChild(deleteBtn);
+    data5.appendChild(readBtn);
+
+    row.appendChild (actionCell);
+
+
+    deleteBtn.addEventListener("click", () => {
+        const index = myLibrary.findIndex(b => b.id === book.id);
+        if (index !== -1) myLibrary.splice(index, 1);
+        row.remove();
+    });
+};
 
 addBookToLibrary("Fourth Wing", "Rebecca Yarros", "517");
 addBookToLibrary("The Secret History", "Donna Tartt", "559");
@@ -116,9 +169,10 @@ Object.assign(button_container.style, {
 Object.assign(button.style, {
     width: "150px",
     height: "40px",
+    marginTop: "20px",
     borderRadius: "15px",
     border: "1px solid #a4a2a2",
-    backgroundColor: "#d2d2d2"
+    backgroundColor: "#afe8ef"
 });
 button.textContent = ("New Book");
 
@@ -138,7 +192,8 @@ button.textContent = ("New Book");
         gridTeamplateColumn: "1fr 2fr",
         columnGap: "10px",
         rowGap: "10px",
-        padding: "10px",
+        padding: "20px",
+        borderRadius: "15px",
         border: "1px solid grey",
     });
 
@@ -168,6 +223,9 @@ button.textContent = ("New Book");
     inputOne.name = "title";
     inputOne.placeholder = "Book title";
     inputOne.required = "requared";
+    inputOne.style.borderRadius = "12px/15px";
+    inputOne.style.paddingLeft = "1rem"
+    inputOne.style.border = "1px solid grey"
  
     labelOne.htmlFor = "title";
 
@@ -176,7 +234,10 @@ button.textContent = ("New Book");
     inputTwo.name = "author";
     inputTwo.placeholder = "Book author";
     inputTwo.required = "requared";
- 
+    inputTwo.style.borderRadius = "12px/15px";
+    inputTwo.style.paddingLeft = "1rem"
+    inputTwo.style.border = "1px solid grey"
+
     labelTwo.htmlFor = "author";
 
     inputThree.type = "number";
@@ -184,6 +245,9 @@ button.textContent = ("New Book");
     inputThree.name = "pages";
     inputThree.placeholder = "123";
     inputThree.required = "requared";
+    inputThree.style.borderRadius = "12px/15px";
+    inputThree.style.paddingLeft = "1rem"
+    inputThree.style.border = "1px solid grey"
  
     labelThree.htmlFor = "pages";
 
@@ -194,6 +258,7 @@ button.textContent = ("New Book");
     readCheckbox.type = 'checkbox';
     readCheckbox.name = 'read';
     readCheckbox.id = 'read';
+    readCheckbox.borderRadius = "15px";
 
     const readLabel = document.createElement('label');
     readLabel.htmlFor = 'read';
@@ -216,14 +281,20 @@ button.textContent = ("New Book");
     Object.assign(submit.style, {
         width: "100px",
         height: "30px",
-        backgroundColor: "#e2e1e1",
+        marginLeft: "auto",
+        marginRight: "auto",
+        borderRadius: "12px/15px",
+        backgroundColor: "#afe8ef",
         border: "1px solid #736f6f"
     });
 
     Object.assign(cancel.style, {
         width: "100px",
         height: "30px",
-        backgroundColor: "#e2e1e1",
+        borderRadius: "12px/15px",
+        marginLeft: "auto",
+        marginRight: "auto",
+        backgroundColor: "#e79090",
         border: "1px solid #736f6f"
     });
 
@@ -248,12 +319,7 @@ submit.addEventListener ("click", function(event) {
         displayBook(last);
         style();
     }
-    
 });
-
-
-
-
 
 
 
@@ -288,5 +354,6 @@ document.querySelectorAll("td").forEach (td => {
 document.querySelectorAll("tr").forEach (tr => {
     tr.style.borderBottom = "3px solid #ddd";
 });
+
 }
 style();
