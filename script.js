@@ -254,6 +254,10 @@ button.textContent = ("New Book");
     labelOne.style.gridColumn = "1/2";
     inputOne.style.gridColumn = "2/3";
 
+
+
+
+
     const readCheckbox = document.createElement('input');
     readCheckbox.type = 'checkbox';
     readCheckbox.name = 'read';
@@ -311,6 +315,27 @@ cancel.addEventListener ("click", function() {
 submit.addEventListener ("click", function(event) {
     event.preventDefault();
 
+       // form validation
+
+    inputOne.setCustomValidity('');
+    inputTwo.setCustomValidity('');
+    inputThree.setCustomValidity('');
+
+    let isValid = true;
+   
+    if (inputOne.value === "") {
+        inputOne.setCustomValidity ("The title must be filled!") 
+        isValid = false; };
+    if (inputTwo.value === "") {inputTwo.setCustomValidity ('The author name must be filled!') 
+        isValid = false; };
+    if (inputThree.value === "") {inputThree.setCustomValidity ("The pages number must be filled!") 
+        isValid = false; };
+
+    if (!isValid) {
+        bookForm.reportValidity();
+        return;
+    };
+
     const oldArrayLenght = myLibrary.length;
     addBookToLibrary (inputOne.value, inputTwo.value, inputThree.value, readCheckbox.checked);
 
@@ -320,6 +345,7 @@ submit.addEventListener ("click", function(event) {
         style();
     }
 });
+
 
 
 
